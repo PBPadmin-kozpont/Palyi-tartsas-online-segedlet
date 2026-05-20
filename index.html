@@ -80,6 +80,7 @@
     </div>
 </body>
 <script>
+    var round = 1
     var card_active = []
     var action_cards = [{type: "Kártyafajta",
                         title: "cím",
@@ -143,6 +144,7 @@
     function bt2() {
         console.log("függvény meghívva")
         for(i = 0;i < card_active.length; i++) {
+            console.log("ciklus")
             card_active[i].deadline--
             if(card_active[i].deadline <= 0) {
                 var a = prompt("Teljesítettétek a "+card_active[i].title+" kártyát?(igen/nem)")
@@ -157,6 +159,11 @@
         }
         add_card(weightedRandom(action_cards))
         console.log("kártya hozzáadva")
+        round++ 
+        document.getElementById("h2").innerHTML = round+". kör"
+    }
+    function bt3() {
+        alert("még nincs funkció")
     }
     //add_card(action_cards[0])
 </script>
