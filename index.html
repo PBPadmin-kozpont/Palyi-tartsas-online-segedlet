@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pályi társas segédlet</table></title>
+</head>
+<style>
+    .flex-container{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-content: space-evenly;
+        height: 93%;
+        width: 100%;
+        position: absolute;
+        top: 20%;
+    }
+    .card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        border: 3px solid black;
+        border-radius: 30px;
+        width: 15%;
+        height: 50%;
+    }
+    #headline{
+        position: absolute;
+        width: 100%;
+        height: 5%;
+        background-color: #FFF4CC;
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+    #bt1{
+        height: 100%;
+        width: 10%;
+        border: none;
+        background-color: #FFF4CC;
+    }
+    #bt2{
+        position: absolute;
+        top: 10%;
+        height: 7%;
+        width: 10%;
+        border-radius: 30px;
+        border: 3px solid #FFF4CC;
+        background-color: white;
+    }
+    #bt3{
+        position: absolute;
+        top: 10%;
+        left: 15%;
+        height: 7%;
+        width: 10%;
+        border-radius: 30px;
+        border: 3px solid #FFF4CC;
+        background-color: white;
+    }
+    #h2{
+        position: absolute;
+        top: 8.5%;
+        left: 30%;
+    }
+</style>
+<body>
+    <div id="headline">
+        <Button id="bt1" onclick="bt1()">Akciókártyák</Button>
+    </div>
+    <button id="bt2" onclick="bt2()">Következő kör</button>
+    <button id="bt3" onclick="bt3()">Másik kártya kérése</button>
+    <h2 id="h2">1. kör</h2>
+    <div class="flex-container" id="flex-container">
+    </div>
+</body>
+<script>
+    var card_active = []
+    var action_cards = [{type: "Kártyafajta",
+                        title: "cím",
+                        description: "leírás",
+                        deadline: 1,
+                        weight: 1,
+                        },{type: "Kártyafajta",
+                        title: "cím",
+                        description: "leírás",
+                        deadline: 1,
+                        weight: 1,
+                        },]
+    function add_card(card) {
+        var flexcontainer = document.getElementById("flex-container")
+        var x = document.createElement("div")
+        x.className = "card"
+        /*x.style.display = "flex"
+        x.style.flexDirection = "coluumn"
+        x.style.alignItems = "center"*/
+        flexcontainer.appendChild(x)
+        var t1 = document.createElement("h1")
+        t1.innerHTML = card.type
+        var t2 = document.createElement("p2")
+        t2.innerHTML = card.title
+        var t3 = document.createElement("p3")
+        t3.innerHTML = card.description
+        var t4 = document.createElement("p4")
+        t4.innerHTML = "Határidő: "+card.deadline+" kör"
+        x.appendChild(t1)
+        x.appendChild(t2)
+        x.appendChild(t3)
+        x.appendChild(t4)
+        card_active.push(x)
+        /*flexcontainer.appendChild(x)
+        card_active.push(x)
+        var y = '<p id="title">'+card.title+'</p><p>'+card.title+'</p><p>'+card.description+'</p><p id="deadline">Határidó: '+card.deadline+'</p>'
+        document.getElementsByClassName("flex-container").innerHTML += y*/
+    }
+    /*for(i= 0;i<action_cards.length;i++) {
+        add_card(action_cards[i])
+    }*/
+    function bt1() {
+        alert("Még nincs funkció!")
+    }
+    function weightedRandom(items) {
+  // Súlyok összege
+  const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+
+  // Random szám 0 és totalWeight között
+  let random = Math.random() * totalWeight;
+
+  // Kiválasztás
+  for (const item of items) {
+    random -= item.weight;
+
+    if (random < 0) {
+      return item;
+    }
+  }
+}
+    function bt2() {
+        console.log("függvény meghívva")
+        for(i = 0;i < card_active.length; i++) {
+            card_active[i].deadline--
+            if(card_active[i].deadline <= 0) {
+                var a = prompt("Teljesítettétek a "+card_active[i].title+" kártyát?(igen/nem)")
+                if(a == "igen") {
+                    card_active[i].remove
+                    card_active.splice(i,1)
+                }
+                else{
+                    alert("Ejnye bejnye, bűntetés\n(minen körben feljön ez az üzenet amíg nem nyomsz igent)")
+                }
+            }
+        }
+        add_card(weightedRandom(action_cards))
+        console.log("kártya hozzáadva")
+    }
+    //add_card(action_cards[0])
+</script>
+</html>
