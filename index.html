@@ -103,6 +103,13 @@
                         deadline: 1,
                         weight: 1,
                         },]
+    var card_25 = []
+    var card_30 = []
+    var card_35 = []
+    var card_40 = []
+    var card_45 = []
+    var card_50 = []
+    var card_55 = []
     var action_cards = active_cards_all
     var active_card = []
     function elemTorles(lista, elem) {
@@ -192,6 +199,27 @@ console.log(lista); // [1, 2, 4]
         console.log("kártya hozzáadva")
         round++ 
         document.getElementById("h2").innerHTML = round+". kör"
+        if(round == 25) {
+            action_cards = action_cards.concat(card_25)
+        }
+        if(round == 30) {
+            action_cards = action_cards.concat(card_30)
+        }
+        if(round == 35) {
+            action_cards = action_cards.concat(card_35)
+        }
+        if(round == 40) {
+            action_cards = action_cards.concat(card_40)
+        }
+        if(round == 45) {
+            action_cards = action_cards.concat(card_45)
+        }
+        if(round == 50) {
+            action_cards = action_cards.concat(card_50)
+        }
+        if(round == 55) {
+            action_cards = action_cards.concat(card_55)
+        }
     }
     function bt3() {
         alert("még nincs funkció")
