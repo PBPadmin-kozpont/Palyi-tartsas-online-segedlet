@@ -82,42 +82,66 @@
 <script>
     var round = 1
     var card_active = []
-    var action_cards = [{type: "Kártyafajta",
+    var active_cards_all = [{type: "Kártyafajta",
                         title: "cím",
                         description: "leírás",
                         deadline: 1,
                         weight: 1,
-                        },{type: "Kártyafajta",
+                        },{type: "Kártyafajtab",
+                        title: "cím",
+                        description: "leírás",
+                        deadline: 1,
+                        weight: 1,
+                        },{type: "Kártyafajtac",
+                        title: "cím",
+                        description: "leírás",
+                        deadline: 1,
+                        weight: 1,
+                        },{type: "Kártyafajtad",
                         title: "cím",
                         description: "leírás",
                         deadline: 1,
                         weight: 1,
                         },]
+    var action_cards = active_cards_all
+    var active_card = []
+    function elemTorles(lista, elem) {
+  const index = lista.indexOf(elem);
+
+  if (index !== -1) {
+    lista.splice(index, 1);
+  }
+
+  return lista;
+}
+
+// Példa:
+const lista = [1, 2, 3, 4];
+elemTorles(lista, 3);
+
+console.log(lista); // [1, 2, 4]
     function add_card(card) {
         var flexcontainer = document.getElementById("flex-container")
         var x = document.createElement("div")
         x.className = "card"
-        /*x.style.display = "flex"
-        x.style.flexDirection = "coluumn"
-        x.style.alignItems = "center"*/
         flexcontainer.appendChild(x)
         var t1 = document.createElement("h1")
         t1.innerHTML = card.type
-        var t2 = document.createElement("p2")
+        var t2 = document.createElement("p")
         t2.innerHTML = card.title
-        var t3 = document.createElement("p3")
+        var t3 = document.createElement("p")
         t3.innerHTML = card.description
-        var t4 = document.createElement("p4")
+        var t4 = document.createElement("p")
         t4.innerHTML = "Határidő: "+card.deadline+" kör"
+        t4.id = "t4"
         x.appendChild(t1)
         x.appendChild(t2)
         x.appendChild(t3)
         x.appendChild(t4)
+        elemTorles(action_cards, card)
+
         card_active.push(x)
-        /*flexcontainer.appendChild(x)
-        card_active.push(x)
-        var y = '<p id="title">'+card.title+'</p><p>'+card.title+'</p><p>'+card.description+'</p><p id="deadline">Határidó: '+card.deadline+'</p>'
-        document.getElementsByClassName("flex-container").innerHTML += y*/
+        active_card.push(card)
     }
     /*for(i= 0;i<action_cards.length;i++) {
         add_card(action_cards[i])
@@ -143,13 +167,14 @@
 }
     function bt2() {
         console.log("függvény meghívva")
-        for(i = 0;i < card_active.length; i++) {
+        for(let i = active_card.length - 1; i >= 0; i--) {
             console.log("ciklus")
-            card_active[i].deadline--
-            if(card_active[i].deadline <= 0) {
-                var a = prompt("Teljesítettétek a "+card_active[i].title+" kártyát?(igen/nem)")
+            active_card[i].deadline--
+            if(active_card[i].deadline <= 0) {
+                var a = prompt("Teljesítettétek a "+active_card[i].title+" kártyát?(igen/nem)")
                 if(a == "igen") {
-                    card_active[i].remove
+                    active_card.splice(i,1) //ehhh
+                    card_active[i].remove()
                     card_active.splice(i,1)
                 }
                 else{
@@ -158,6 +183,12 @@
             }
         }
         add_card(weightedRandom(action_cards))
+        console.log("aaaaaaa")
+        for(i=0;i<card_active.length;i++) {
+            console.log("hatidő")
+            card_active[i].querySelector("#t4").innerHTML = "Határidő: "+active_card[i].deadline
+        }
+        
         console.log("kártya hozzáadva")
         round++ 
         document.getElementById("h2").innerHTML = round+". kör"
@@ -165,6 +196,6 @@
     function bt3() {
         alert("még nincs funkció")
     }
-    //add_card(action_cards[0])
+    
 </script>
 </html>
